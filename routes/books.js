@@ -13,6 +13,18 @@ router.get('/books', (req, res) => {
     });
 });
 
+router.get('/books/:id', (req, res) => {
+  knex('books')
+    .where('id', req.params.id)
+    .first()
+    .then((book) => {
+      res.send(humps.camelizeKeys(book))
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.post('/books', (req, res, next) => {
   knex('books')
     .insert(humps.decamelizeKeys({
@@ -36,6 +48,13 @@ router.patch('/books/:id', (req, res, next) => {
       if (!book) {
         return next();
       }
+      const {
+        title,
+        author,
+        genre,
+        description,
+        coverUrl
+      } = req.body;
       const updateBook = {}
       if (title) {
         updateBook.title = req.body.title;
