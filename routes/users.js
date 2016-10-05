@@ -40,7 +40,8 @@ router.post('/users', (req, res, next) => {
 
       delete user.hashedPassword;
 
-      let expiry = new Date(Date.now() + 1000 * 60 * 60 * 3); // 3 hours
+      // session expiration
+      let expiration = new Date(Date.now() + 1000 * 60 * 60 * 3);
       let token = jwt.sign({
         userId: user.id
       }, process.env.JWT_SECRET, {
@@ -49,7 +50,7 @@ router.post('/users', (req, res, next) => {
 
       res.cookie('accessToken', token, {
         httpOnly: true,
-        expires: expiry,
+        expires: expiration,
         secure: router.get('env') === 'production'
       });
 
