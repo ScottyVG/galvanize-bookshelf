@@ -6,6 +6,8 @@
   "scripts": {
     "heroku-postbuild": "knex migrate:latest",
     "knex": "knex",
+    "heroku-postbuild": "knex migrate:latest",
+    "nodemon": "nodemon server.js",
     "lint": "eslint  --ignore-pattern public/js/vendor",
     "nf": "nf start",
     "start": "nodemon server.js",
@@ -48,6 +50,6 @@
     "supertest": "^1.2.0"
   },
   "engines": {
-    "node": "6.3.1"
+    "node": "6.5.0"
   }
 }
